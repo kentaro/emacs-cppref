@@ -33,6 +33,11 @@
 ;; the lines below into your .emacs:
 ;;
 ;;   (require 'cppref)
+;;
+;; Althogh cppref.el automatically find out the place of
+;; documentation, if you want to put your the directory at some other
+;; place, you must add one more line like below:
+;;
 ;;   (setq cppref-doc-dir "/path/to/dir") ;; doesn't end with "/"
 ;;
 ;; Then run `cppref' command and type like "vector::begin",
