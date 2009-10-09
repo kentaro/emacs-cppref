@@ -48,6 +48,9 @@
 ;; cppref.el is Emacs version of Kazuho Oku's cppref command
 ;; http://search.cpan.org/dist/cppref/
 
+;; The documents are from http://www.cppreference.com/ (under Creative
+;; Commons Attribution 3.0 license).
+
 ;;; Code:
 
 (eval-when-compile
