@@ -91,10 +91,12 @@ browser."
     (if (not reference)
         (error (concat "no document found for " name)))
     (if candidates
-        (error (concat "multiple choices for " name ":\n\t"
-                       (mapconcat 'identity candidates "\n\t"))))
-
+	(setq reference (cppref-select-from-multiple-choices
+			 candidates)))
     (cppref-visit-reference reference)))
+
+(defun cppref-select-from-multiple-choices (choices)
+  (completing-read "multiple choies. push tab key. select :" choices nil t ""))
 
 (defun cppref-init-doc-dir ()
   (if (not cppref-doc-dir)
