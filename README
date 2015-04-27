@@ -29,10 +29,13 @@
 
 ;; * Usage
 ;;
-;; cppref.el requires cl and emacs-w3m installed in advance. So, add
+;; cppref.el requires cl installed in advance. So, add
 ;; the lines below into your .emacs:
 ;;
 ;;   (require 'cppref)
+;;
+;; File viewing is handled by browse-url. You can customize the browser
+;; with the option variable browse-url-browser-function.
 ;;
 ;; Althogh cppref.el automatically find out the place of
 ;; documentation, if you want to put your the directory at some other

@@ -29,10 +29,13 @@
 
 ;; * Usage
 ;;
-;; cppref.el requires cl and emacs-w3m installed in advance. So, add
+;; cppref.el requires cl installed in advance. So, add
 ;; the lines below into your .emacs:
 ;;
 ;;   (require 'cppref)
+;;
+;; File viewing is handled by browse-url. You can customize the browser
+;; with the option variable browse-url-browser-function.
 ;;
 ;; Althogh cppref.el automatically find out the place of
 ;; documentation, if you want to put your the directory at some other
@@ -55,7 +58,6 @@
 
 (eval-when-compile
   (require 'cl)
-  (require 'w3m-load)
   (load "find-func") ;; for `find-library-name' to be loaded.
   )
 
@@ -105,7 +107,7 @@ browser."
         (setq cppref-doc-dir (concat library-root "docs")))))
 
 (defun cppref-visit-reference (reference)
-  (w3m-find-file reference))
+  (browse-url reference))
 
 (defun cppref-find-reference (dir name)
   (let ((candidates '())
