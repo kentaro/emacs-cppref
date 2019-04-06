@@ -61,6 +61,14 @@
   (load "find-func") ;; for `find-library-name' to be loaded.
   )
 
+(defvar cppref-buffer-name "*cppref*")
+
+(defvar cppref-browser-function
+  (if (version<= "24.4" emacs-version)
+      #'cppref-eww-browse-url
+    #'browse-url)
+  "Browser function used to see reference.")
+
 (defvar cppref-doc-dir nil
   "Your local directory in which C++ references are placed")
 
@@ -106,8 +114,28 @@ browser."
              (library-root (file-name-directory library-path)))
         (setq cppref-doc-dir (concat library-root "docs")))))
 
+(eval-when-compile
+  (when (version<= "24.4" emacs-version)
+    (defun cppref-eww-browse-url (url)
+      "Browse url with eww in buffer named `cppref-buffer-name'."
+      (pop-to-buffer-same-window
+       (get-buffer-create cppref-buffer-name))
+      (if (eq major-mode 'eww-mode)
+          (eww-save-history)
+        (eww-mode))
+      (eww url))))
+
+(defun cppref-to-url-if-file (file-path-or-url)
+  "If FILE-PATH-OR-URL is path to file, put \"file:///\" at beginning."
+  (concat
+   (when (file-exists-p file-path-or-url)
+     "file:///")
+   file-path-or-url))
+
 (defun cppref-visit-reference (reference)
-  (browse-url reference))
+  (funcall
+   cppref-browser-function
+   (cppref-to-url-if-file reference)))
 
 (defun cppref-find-reference (dir name)
   (let ((candidates '())
